@@ -1,57 +1,54 @@
 label {
-    font-weight: bold;
-    display: flex;
-    color: #FFDE00;
-    margin-bottom: 5px;
-  }
+  font-weight: bold;
+  display: flex;
+  color: #FFDE00;
+  margin-bottom: 5px;
+}
 
-  .loginHeader{margin:40px;
-    color: #FFDE00
-  }
+.loginHeader{margin:40px;
+  color: #FFDE00
+}
 
-  input[type="text"] {
-    display: block;
-    width: 400px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #FFDE00;
+input[type="text"] {
+  display: block;
+  width: 400px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #FFDE00;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .form-control {
-    margin-bottom: 20px;
-  }
-  
-  .error {
-    color: red;
-    font-size: 12px;
-    text-align: left;
+.form-control {
+  margin-bottom: 20px;
+}
 
-  }
+.error {
+  color: red;
+  font-size: 12px;
+  text-align: left;
+}
+ 
+button.link {
+  background-color: #6da2db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 15px;
+  transition: background-color 0.3s;
+}
 
-  button.link {
-    background-color: #6da2db;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    display: inline-block;
-    margin: 15px;
-    transition: background-color 0.3s;
-  }
-  
-  button.link:hover {
-    background-color: #0056b3;
-  }
-  
-  button {
-    width: 150px;
-    height: 50px;
+button.link:hover {
+  background-color: #0056b3;
+}
 
-  }
+button {
+  width: 150px;
+  height: 50px;
+}
