@@ -1,93 +1,87 @@
-import React, { useEffect, useState } from 'react';
-import './LoginForm.css'
+import React, { useState, useEffect } from 'react';
+import './Login.css';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Homepage from './homepage';
-import { createContext } from 'react';
-
-export let playerInfo = createContext();
-export let username = createContext();
-
 
 export default function LoginForm() {
-    const [playerId, setPlayerId] = useState(null)
-    const [statusCode, setStatusCode] = useState(null);
-    const [correctStatusCode, setCorrectStatusCode] = useState(false);
-    const [playerUsername, setPlayerUsername] = useState(null)
+  const [loginStatus, setLoginStatus] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
+  const navigate = useNavigate();
 
-     playerInfo = createContext(playerId);
-     username = createContext(playerUsername)
-
-    useEffect(() => {
-        if(statusCode === 200){
-          setCorrectStatusCode(true);
-        }       
-      
-    }, [statusCode])
-
-
-    const form = useForm({
-        defaultValues: {
-            username: "",
-            password: ""
-        }
-    });
-
-    const { register, control, handleSubmit, formState } = form;
-    const { errors } = formState;
-
-    const onSubmit = async (data) => {
-        const url = "https://pokedictionarygamedev.onrender.com/login";
-        const returnedData = await axios.post(url, data).catch(error => {
-            window.alert(error.response.data)});
-        if(returnedData){
-            setStatusCode(returnedData.status);
-            setPlayerId(returnedData.data.accountID)
-            setPlayerUsername(returnedData.data.username);
-        }            
+  // 認証状態がtrueに変更されたときに実行されるuseEffect
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/home'); // isAuthenticatedがtrueの時にホームページにリダイレクトする
     }
+  }, [isAuthenticated, navigate]); // 依存配列にnavigateとisAuthenticatedを含める
 
-    return (  
-       <>
-        {!correctStatusCode ?
+  useEffect(() => {
+    if (loginStatus === 200) {
+      setIsAuthenticated(true);
+    }
+  }, [loginStatus]);
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      // 環境変数からAPIエンドポイントを取得してログインエンドポイントのURLを構築
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000/api";// デフォルトURLを提供
+      const url = `${apiUrl}/login`;
+      const response = await axios.post(url, data);
+      setLoginStatus(response.status);
+      setUserInfo({
+        userId: response.data.userId,
+        username: response.data.username
+      });
+    } catch (error) {
+      if (error.response) {
+        window.alert(error.response.data.message); // エラーメッセージを適切に表示
+        setLoginStatus(error.response.status);
+      } else {
+        window.alert("An error occurred, please try again later.");
+      }
+    }            
+  };
+
+  return (
+    <>
+      {!isAuthenticated ? (
         <div>
-          
-            <h1 className='loginHeader'>Login Form</h1>
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                <div className='form-control'>
-                    <label htmlFor='username'>Username</label>
-                    <input 
-                        type='text' 
-                        id='username' 
-                        {...register("username", {
-                            required: {
-                                value: true,
-                                message: "Username is required."
-                            }
-                        })} 
-                    />
-                    <p className='error'>{errors.username?.message}</p>
-                </div>
-                <div className='form-control'>
-                    <label htmlFor='password'>Password</label>
-                    <input 
-                        type='text' 
-                        id='password' 
-                        {...register("password", {
-                            required: {
-                                value: true,
-                                message: "Password is required."
-                            }
-                        })} 
-                    />
-                    <p className='error'>{errors.password?.message}</p>
-                </div>         
-                <button className='link 'type='submit'>Log In</button>
-            </form>
-            <Link to="registration"><button  className='link' >Register</button></Link>
-        </div>:
-        <Homepage playerId={playerId}/> }
-        </>
-    );
-}; 
+          <h1 className='loginHeader'>Login Form</h1>
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <div className='form-control'>
+              <label htmlFor='username'>Username</label>
+              <input 
+                type='text' 
+                id='username' 
+                {...register("username", {
+                  required: "Username is required."
+                })} 
+              />
+              {errors.username && <p className='error'>{errors.username.message}</p>}
+            </div>
+            <div className='form-control'>
+              <label htmlFor='password'>Password</label>
+              <input 
+                type='password'
+                id='password' 
+                {...register("password", {
+                  required: "Password is required."
+                })} 
+              />
+              {errors.password && <p className='error'>{errors.password.message}</p>}
+            </div>         
+            <button type='submit'>Log In</button>
+          </form>
+          <Link to="/register"><button className='link'>Register</button></Link>
+        </div>
+      ) : (
+        // 認証済みの状態であれば、ログインフォームを表示せず、useEffectによるリダイレクトを待つ
+        <p>Redirecting to home...</p>
+      )}
+    </>
+  );
+}
