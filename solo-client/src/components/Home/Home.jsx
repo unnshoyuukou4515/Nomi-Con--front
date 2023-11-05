@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Home() {
   const navigate = useNavigate();
-  const [location, setLocation] = useState(null);
+  const location = useLocation(); // 追加：useLocationフックを使用してロケーションオブジェクトを取得する
+  const [userLocation, setUserLocation] = useState(null); // stateの名前を変更して、React Routerのlocationと混同を避ける
+
+  // location.stateからユーザー情報を取り出す
+  const { userId, username } = location.state || {}; // ナビゲートからのstateをチェック
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setLocation({
+        setUserLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
@@ -20,9 +24,11 @@ function Home() {
   }, []);
 
   const goToMap = () => {
-    navigate('/map', { state: { location } });
+    // ユーザーの地理的位置とユーザーIDをマップページに渡す
+    navigate('/map', { state: { location: userLocation, userId } });
   };
 
+  // goToSearch と goToHistory 関数は変更がないためそのままです
   const goToSearch = () => {
     navigate('/search');
   };
@@ -33,7 +39,7 @@ function Home() {
 
   return (
     <div className="home-container">
-      <h1>Welcome to Home</h1>
+      <h1>Welcome to Home, {username || 'Guest'}!</h1> {/* ユーザー名が存在する場合は表示 */}
       <button onClick={goToMap}>View Map</button>
       <button onClick={goToSearch}>Search by Station</button>
       <button onClick={goToHistory}>View History</button>
