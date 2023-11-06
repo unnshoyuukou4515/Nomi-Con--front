@@ -1,0 +1,40 @@
+/* CSSファイルのスタイル定義 */
+
+.home-container {
+  /* スタイルルール */
+}
+
+.home-title {
+  /* スタイルルール */
+}
+
+.home-button {
+  /* 全ボタン共通のスタイル */
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+  /* ホバー時のスタイル変更 */
+  background-color: #e0e0e0;
+}
+
+.home-map-button {
+  /* 地図を見るボタン専用のスタイル */
+  background-color: #add8e6;
+}
+
+.home-search-button {
+  /* 駅で検索するボタン専用のスタイル */
+  background-color: #90ee90;
+}
+
+.home-history-button {
+  /* 履歴を見るボタン専用のスタイル */
+  background-color: #ffb6c1;
+}

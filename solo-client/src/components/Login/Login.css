@@ -52,3 +52,47 @@ button {
   width: 150px;
   height: 50px;
 } */
+
+.login-container {
+  /* コンテナのスタイル */
+}
+
+.login-header {
+  /* ヘッダのスタイル */
+}
+
+.login-form {
+  /* フォームのスタイル */
+}
+
+.form-group {
+  /* フォームグループ(ラベルとインプットのコンビ)のスタイル */
+}
+
+.form-label {
+  /* ラベルのスタイル */
+}
+
+.form-input {
+  /* インプットフィールドのスタイル */
+}
+
+.error-message {
+  /* エラーメッセージのスタイル */
+}
+
+.login-button {
+  /* ログインボタンのスタイル */
+}
+
+.link-button {
+  /* 全リンクボタンの共通スタイル */
+}
+
+.register-button {
+  /* 登録ボタン専用のスタイル */
+}
+
+.login-status {
+  /* ログイン状態表示用のスタイル */
+}

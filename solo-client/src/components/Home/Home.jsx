@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import "./Home.css"
 
 function Home() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ function Home() {
       // さらなるデバッグやエラー処理をここに追加できます。
     }
     // ユーザーの地理的位置とユーザーIDをマップページに渡す
-    navigate('/map', { state: { location: userLocation, userId } });
+    navigate('/map', { state: { location: userLocation, userId ,username} });
   };
 
   // goToSearch と goToHistory 関数は変更がないためそのままです
@@ -42,17 +43,24 @@ function Home() {
   };
 
   const goToHistory = () => {
-    navigate('/history');
+    navigate('/history', { state: { location: userLocation, userId ,username} });
   };
 
   return (
-    <div className="home-container">
-      <h1>Welcome to Home, {username || 'Guest'}!</h1> {/* ユーザー名が存在する場合は表示 */}
-      <button onClick={goToMap}>View Map</button>
-      <button onClick={goToSearch}>Search by Station</button>
-      <button onClick={goToHistory}>View History</button>
-      {/* その他のコンポーネントが続く */}
-    </div>
+<div className="home-container">
+  <h1 className="home-title">Welcome to Home, {username || 'Guest'}!</h1> {/* ユーザー名が存在する場合は表示 */}
+  <div>
+    <button className="home-button home-map-button" onClick={goToMap}>View Map</button>
+  </div>
+  <div>
+    <button className="home-button home-search-button" onClick={goToSearch}>Search by Station</button>
+  </div>
+  <div>
+    <button className="home-button home-history-button" onClick={goToHistory}>View History</button>
+  </div>
+
+  {/* その他のコンポーネントが続く */}
+</div>
   );
 }
 

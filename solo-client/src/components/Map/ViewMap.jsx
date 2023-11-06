@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { useNavigate } from 'react-router-dom';
+import "./ViewMap.css"
 import axios from 'axios';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -21,6 +23,8 @@ const izakayaIcon = new L.Icon({
   popupAnchor: [0, -35],
 });
 const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+
+
 const ViewMap = () => {
   // コンポーネントの状態管理
   const [izakayas, setIzakayas] = useState([]);
@@ -28,11 +32,18 @@ const ViewMap = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedShop, setSelectedShop] = useState(null);
   const [rating, setRating] = useState(3);
+  const [showConquredMessage, setShowConquredMessage] = useState(false);
   // console.logを使って緯度経度情報を出力します。
 
 
   // useLocationフックから位置情報を取得
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const goHome = () => {
+    navigate('/home', { state: { userId: userId, username: username } }); // Homeコンポーネントにリダイレクト
+  };
+
   // URLパラメータから緯度経度を取得（あるいはデフォルト値をnullとする）
 //   console.log("location state:", location.state);
 //   console.log("latitude:", location.state.location?.latitude);
@@ -42,13 +53,13 @@ const latitude = location.state?.location?.latitude || null;
 const longitude = location.state?.location?.longitude || null;
 // location.stateからuserIdを直接取得
 const userId = location.state?.userId || null;
-
+const username = location.state?.username || null;
   // コンポーネントのマウント時に居酒屋データを取得
   useEffect(() => {
     
     // console.log("latitude2:", latitude);
     // console.log("longitude2:", longitude);
-    // console.log("userId:", userId);
+    console.log("userId:", userId + "username",username);
     // 緯度経度が正しく取得できていれば居酒屋データを取得する関数を呼び出す
     if (latitude && longitude && userId) {
       const fetchIzakayas = async () => {
@@ -106,55 +117,85 @@ const userId = location.state?.userId || null;
     }
   };
 
+  const checkAllConqured = () => {
+    const allConqured = izakayas.every((shop) =>
+      visitedIzakayas.includes(shop.id)
+    );
+    setShowConquredMessage(allConqured);
+  };
+
+  // すべての店舗が訪問済みかどうかを確認する副作用フック
+  useEffect(() => {
+    checkAllConqured();
+  }, [visitedIzakayas, izakayas]); 
+
+  const handleConqreMessageClose = () => {
+    setShowConquredMessage(false);
+  };
+
+
   // レンダリングロジック
   return (
     <div>
+      <button className="VeiwMap-toHome" onClick={goHome}>Go Home</button>
+      <div className="hotpepper-credit">
+  <a href="https://www.hotpepper.jp/" target="_blank" rel="noopener noreferrer">
+    <img src="https://webservice.recruit.co.jp/banner/hotpepper-s.gif" alt="提供：ホットペッパー Webサービス"/>
+  </a>
+</div>
+    <div className="map-view">
       {/* 緯度経度が取得できている場合にマップを表示 */}
       {latitude && longitude ? (
-        <MapContainer center={[latitude, longitude]} zoom={17} style={{ height: '100vh', width: '100%' }}>
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          />
+        <div className="map-container"> {/* divタグにclassName追加 */}
+          <MapContainer center={[latitude, longitude]} zoom={17} style={{ height: '100vh', width: '100%' }}>
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
             {/* 現在位置にマーカーを追加 */}
             <Marker position={[latitude, longitude]}>
-                <Popup>You are here!</Popup>
-            </Marker>
-          {/* 居酒屋のマーカーをマップに配置 */}
-          {izakayas.map((shop) => (
-            <Marker
-              key={shop.id}
-              position={[shop.lat, shop.lng]}
-              icon={visitedIzakayas.includes(shop.id) ? visitedIzakayaIcon : izakayaIcon}
-              eventHandlers={{
-                click: () => {
-                  console.log('Selected shop:', shop);
-                  setSelectedShop(shop.id); // クリックされたshopのIDを選択
-                  setShowPopup(true); // ポップアップを表示
-                },
-              }}
-            >
-              <Popup>  
-                <div>
-                  <img src={shop.photo.pc.l} alt={shop.name} style={{width: '150px', height: 'auto'}} />
-                  <p>{shop.name}</p>
-                  <a href={shop.urls.pc} target="_blank" rel="noopener noreferrer">詳細ページへ</a>
-                </div>
+              <Popup className="popup-current-location"> {/* PopupにclassName追加 */}
+                You are here!
               </Popup>
             </Marker>
-          ))}
-        </MapContainer>
+            {/* 居酒屋のマーカーをマップに配置 */}
+            {izakayas.map((shop) => (
+              <Marker
+                key={shop.id}
+                position={[shop.lat, shop.lng]}
+                icon={visitedIzakayas.includes(shop.id) ? visitedIzakayaIcon : izakayaIcon}
+                eventHandlers={{
+                  click: () => {
+                    console.log('Selected shop:', shop);
+                    setSelectedShop(shop.id); // クリックされたshopのIDを選択
+                    setShowPopup(true); // ポップアップを表示
+                  },
+                }}
+              >
+                <Popup className="popup-shop-info"> {/* PopupにclassName追加 */}
+                  <div className="popup-shop-content"> {/* divタグにclassName追加 */}
+                    <img src={shop.photo.pc.l} alt={shop.name} style={{width: '150px', height: 'auto'}} />
+                    <p>{shop.name}</p>
+                    <a href={shop.urls.pc} target="_blank" rel="noopener noreferrer">詳細ページへ</a>
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
+          </MapContainer>
+        </div>
       ) : (
-        <p>Loading map...</p>
+        <p className="loading-map"> {/* pタグにclassName追加 */}
+          Loading map...
+        </p>
       )}
-
+  
       {/* ポップアップモーダル表示ロジック */}
       {showPopup && selectedShop && (
-        <div className="popup-modal">
-          <div className="modal-content">
+        <div className="popup-modal"> {/* divタグにclassName追加 */}
+          <div className="modal-content"> {/* divタグにclassName追加 */}
             <h2>レストランの評価</h2>
             {/* 評価セレクター */}
-            <select value={rating} onChange={(e) => setRating(e.target.value)}>
+            <select className="rating-select" value={rating} onChange={(e) => setRating(e.target.value)}> {/* selectタグにclassName追加 */}
               {[1, 2, 3, 4, 5].map((number) => (
                 <option key={number} value={number}>
                   {number} 星
@@ -162,12 +203,26 @@ const userId = location.state?.userId || null;
               ))}
             </select>
             {/* 評価送信ボタン */}
-            <button onClick={() => handleVisit(selectedShop)}>評価を送信</button>
+            <button className="submit-rating" onClick={() => handleVisit(selectedShop)}> {/* buttonタグにclassName追加 */}
+              評価を送信
+            </button>
             {/* キャンセルボタン */}
-            <button onClick={() => setShowPopup(false)}>キャンセル</button>
+            <button className="cancel-button" onClick={() => setShowPopup(false)}> {/* buttonタグにclassName追加 */}
+              キャンセル
+            </button>
           </div>
         </div>
       )}
+      {showConquredMessage && (
+          <div className="congratulations-overlay" onClick={handleConqreMessageClose}>
+            <div className="congratulations-message">
+              <h1>おめでとう！</h1>
+              <p>すべての店舗を訪れました！</p>
+              <button onClick={handleConqreMessageClose}>閉じる</button>
+            </div>
+          </div>
+        )}
+    </div>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import LoginForm from './components/Login/Login'; // LoginFormコンポーネン
 import RegistrationForm from './components/Register/Register'; // RegistrationFormコンポーネントのインポート
 import Home from './components/Home/Home'; // Homeコンポーネントのインポート
 import ViewMap from './components/Map/ViewMap'; // ViewMapコンポーネントのインポートを追加
+import History from './components/History/History'
 
 function App() {
   // useStateの使用がここでは見当たらないので、不要であれば削除可能
@@ -19,6 +20,7 @@ function App() {
         <Route path="/Register" element={<RegistrationForm />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Map" element={<ViewMap />} />
+        <Route path="/History" element={<History />} />
         {/* 他のルート定義 */}
       </Routes>
     </Router>

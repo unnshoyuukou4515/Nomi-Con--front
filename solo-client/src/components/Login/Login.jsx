@@ -15,11 +15,11 @@ export default function LoginForm() {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
       const response = await axios.post(`${apiUrl}/login`, data);
 
-      console.log("Login response:", response);
+      // console.log("Login response:", response);
 
       // userId と username を個別に出力します
-      console.log("User ID:", response.data.userId);
-      console.log("Username:", response.data.username);
+      // console.log("User ID:", response.data.userId);
+      // console.log("Username:", response.data.username);
 
 
       if (response.status === 200) {
@@ -40,34 +40,37 @@ export default function LoginForm() {
   };
 
   return (
-    <div>
-      <h1 className='loginHeader'>Login Form</h1>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <div className='form-control'>
-          <label htmlFor='username'>Username</label>
-          <input 
-            type='text' 
-            id='username' 
-            {...register("username", {
-              required: "Username is required."
-            })} 
-          />
-          {errors.username && <p className='error'>{errors.username.message}</p>}
-        </div>
-        <div className='form-control'>
-          <label htmlFor='password'>Password</label>
-          <input 
-            type='password'
-            id='password' 
-            {...register("password", {
-              required: "Password is required."
-            })} 
-          />
-          {errors.password && <p className='error'>{errors.password.message}</p>}
-        </div>         
-        <button type='submit'>Log In</button>
-      </form>
-      <Link to="/register"><button className='link'>Register</button></Link>
-    </div>
+    <div className="login-container">
+    <h1 className='login-header'>Login Form</h1>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className='login-form'>
+      <div className='form-group'>
+        <label htmlFor='username' className='form-label'>Username</label>
+        <input 
+          type='text' 
+          id='username' 
+          className='form-input'
+          {...register("username", {
+            required: "Username is required."
+          })} 
+        />
+        {errors.username && <p className='error-message'>{errors.username.message}</p>}
+      </div>
+      <div className='form-group'>
+        <label htmlFor='password' className='form-label'>Password</label>
+        <input 
+          type='password'
+          id='password'
+          className='form-input' 
+          {...register("password", {
+            required: "Password is required."
+          })} 
+        />
+        {errors.password && <p className='error-message'>{errors.password.message}</p>}
+      </div>         
+      <button type='submit' className='login-button'>Log In</button>
+    </form>
+    <Link to="/register"><button className='link-button register-button'>Register</button></Link>
+    {loginStatus && <div className="login-status">Login status: {loginStatus}</div>}
+  </div>
   );
 }

@@ -41,39 +41,42 @@ export default function RegistrationForm() {
 
   return (
     <>
-      {!correctStatusCode ?
-        <div>
-          <h1 className='loginHeader'>Registration Form</h1>
-          <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <div className='form-control'>
-              <label htmlFor='username'>Username</label>
+           {!correctStatusCode ?
+        <div className="register-container">
+          <h1 className='register-header'>Registration Form</h1>
+          <form onSubmit={handleSubmit(onSubmit)} noValidate className='register-form'>
+            <div className='form-group'>
+              <label htmlFor='username' className='form-label'>Username</label>
               <input
                 type='text'
                 id='username'
+                className='form-input'
                 {...register("username", {
                   required: "Username is required."
                 })}
               />
-              <p className='error'>{errors.username?.message}</p>
+              {errors.username && <p className='error-message'>{errors.username.message}</p>}
             </div>
 
-            <div className='form-control'>
-              <label htmlFor='password'>Password</label>
+            <div className='form-group'>
+              <label htmlFor='password' className='form-label'>Password</label>
               <input
-                type='password' // Changed to type 'password' to hide input
+                type='password'
                 id='password'
+                className='form-input'
                 {...register("password", {
                   required: "Password is required."
                 })}
               />
-              <p className='error'>{errors.password?.message}</p>
+              {errors.password && <p className='error-message'>{errors.password.message}</p>}
             </div>
 
-            <div className='form-control'>
-              <label htmlFor='email'>Email</label>
+            <div className='form-group'>
+              <label htmlFor='email' className='form-label'>Email</label>
               <input
                 type='email'
                 id='email'
+                className='form-input'
                 {...register("email", {
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
@@ -81,15 +84,13 @@ export default function RegistrationForm() {
                   }
                 })}
               />
-              <p className='error'>{errors.email?.message}</p>
+              {errors.email && <p className='error-message'>{errors.email.message}</p>}
             </div>
 
-            <button type='submit'>Register</button>
+            <button type='submit' className='register-button'>Register</button>
           </form>
-          <Link className="link" to="/"><button>Back To Login</button></Link>
+          <Link to="/" className='back-to-login-link'><button className='back-to-login-button'>Back To Login</button></Link>
         </div> :
-
-
         <LoginForm />
       }
     </>

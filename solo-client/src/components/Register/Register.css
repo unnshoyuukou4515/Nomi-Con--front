@@ -49,3 +49,45 @@
     justify-content: center;
     align-items: center;
   } */
+
+  .register-container {
+    /* 登録フォームコンテナのスタイル */
+  }
+  
+  .register-header {
+    /* 登録フォームのヘッダのスタイル */
+  }
+  
+  .register-form {
+    /* 登録フォーム全体のスタイル */
+  }
+  
+  .form-group {
+    /* フォームの各グループ（ラベル＋入力）のスタイル */
+  }
+  
+  .form-label {
+    /* ラベルのスタイル */
+  }
+  
+  .form-input {
+    /* 入力フィールドのスタイル */
+  }
+  
+  .error-message {
+    /* エラーメッセージのスタイル */
+    color: red;
+  }
+  
+  .register-button {
+    /* 登録ボタンのスタイル */
+  }
+  
+  .back-to-login-link {
+    /* ログインへ戻るリンクのスタイル */
+  }
+  
+  .back-to-login-button {
+    /* ログインへ戻るボタンのスタイル */
+  }
+  
