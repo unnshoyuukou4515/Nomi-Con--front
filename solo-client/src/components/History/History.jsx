@@ -47,6 +47,11 @@ const History = () => {
   return (
     <div>
         <button onClick={goHome}>Go Home</button>
+        <div className="hotpepper-credit">
+  <a href="https://www.hotpepper.jp/" target="_blank" rel="noopener noreferrer">
+    <img src="https://webservice.recruit.co.jp/banner/hotpepper-s.gif" alt="提供：ホットペッパー Webサービス"/>
+  </a>
+</div>
     <div>
       <h1>Visited Restaurants</h1>
       {error && <p>Error: {error}</p>}
