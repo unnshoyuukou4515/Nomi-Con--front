@@ -14,7 +14,16 @@ export default function LoginForm() {
     try {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
       const response = await axios.post(`${apiUrl}/login`, data);
+
+      console.log("Login response:", response);
+
+      // userId と username を個別に出力します
+      console.log("User ID:", response.data.userId);
+      console.log("Username:", response.data.username);
+
+
       if (response.status === 200) {
+        console.log("Login successful with data:", response.data);
         // レスポンスからユーザー情報をセットし、Homeコンポーネントへリダイレクトする
         navigate('/home', { state: { userId: response.data.userId, username: response.data.username } });
       } else {

@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 function Home() {
   const navigate = useNavigate();
   const location = useLocation(); // 追加：useLocationフックを使用してロケーションオブジェクトを取得する
+  // console.log("Current state at Home: ", location.state);
   const [userLocation, setUserLocation] = useState(null); // stateの名前を変更して、React Routerのlocationと混同を避ける
 
   // location.stateからユーザー情報を取り出す
@@ -12,6 +13,7 @@ function Home() {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        //  console.log("Current Position:", position); 
         setUserLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -24,6 +26,12 @@ function Home() {
   }, []);
 
   const goToMap = () => {
+    // console.log('Current user location:', userLocation);
+    // console.log('Current userId:', userId); 
+    if (typeof userId === 'undefined') {
+      console.error('UserId is undefined at this point');
+      // さらなるデバッグやエラー処理をここに追加できます。
+    }
     // ユーザーの地理的位置とユーザーIDをマップページに渡す
     navigate('/map', { state: { location: userLocation, userId } });
   };
