@@ -4,17 +4,17 @@ import "./Home.css"
 
 function Home() {
   const navigate = useNavigate();
-  const location = useLocation(); // 追加：useLocationフックを使用してロケーションオブジェクトを取得する
+  const location = useLocation(); 
   // console.log("Current state at Home: ", location.state);
-  const [userLocation, setUserLocation] = useState(null); // stateの名前を変更して、React Routerのlocationと混同を避ける
+  const [userLocation, setUserLocation] = useState(null); 
 
-  // location.stateからユーザー情報を取り出す
-  const { userId, username } = location.state || {}; // ナビゲートからのstateをチェック
+  // location.stateユーザー情報
+  const { userId, username } = location.state || {}; 
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        //  console.log("Current Position:", position); 
+         console.log("Current Position:", position); 
         setUserLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -31,24 +31,24 @@ function Home() {
     // console.log('Current userId:', userId); 
     if (typeof userId === 'undefined') {
       console.error('UserId is undefined at this point');
-      // さらなるデバッグやエラー処理をここに追加できます。
+
     }
-    // ユーザーの地理的位置とユーザーIDをマップページに渡す
+    // 位置とユーザーID、名前をマップへ
     navigate('/map', { state: { location: userLocation, userId ,username} });
   };
 
-  // goToSearch と goToHistory 関数は変更がないためそのままです
+  //not yet
   const goToSearch = () => {
-    navigate('/search');
+    navigate('/searchstation',{ state: { location: userLocation, userId ,username} });
   };
-
+  //位置とユーザーID、名前を
   const goToHistory = () => {
     navigate('/history', { state: { location: userLocation, userId ,username} });
   };
 
   return (
 <div className="home-container">
-  <h1 className="home-title">Welcome to Home, {username || 'Guest'}!</h1> {/* ユーザー名が存在する場合は表示 */}
+  <h1 className="home-title">let's get drunk! {username || 'Guest'}!</h1> 
   <div>
     <button className="home-button home-map-button" onClick={goToMap}>View Map</button>
   </div>
@@ -59,7 +59,7 @@ function Home() {
     <button className="home-button home-history-button" onClick={goToHistory}>View History</button>
   </div>
 
-  {/* その他のコンポーネントが続く */}
+
 </div>
   );
 }

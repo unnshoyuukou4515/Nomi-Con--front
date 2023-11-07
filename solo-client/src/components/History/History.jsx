@@ -58,7 +58,7 @@ const History = () => {
       <ul>
         {visitedRestaurants.map((restaurantId) => (
           <li key={restaurantId}>
-            {restaurantId} {/* Here you might want to fetch and display restaurant names */}
+            {restaurantId} {/* add pic name=> english and visit plus URL*/}
           </li>
         ))}
       </ul>
