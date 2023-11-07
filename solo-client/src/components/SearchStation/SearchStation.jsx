@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup,useMap } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
 import "./SearchStation.css"
 import axios from 'axios';
@@ -46,29 +46,50 @@ const stations = [
 
 
 const SearchStation = () => {
-  // コンポーネント
+  
   const [izakayas, setIzakayas] = useState([]);
   const [visitedIzakayas, setVisitedIzakayas] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedShop, setSelectedShop] = useState(null);
   const [rating, setRating] = useState(3);
   const [showConquredMessage, setShowConquredMessage] = useState(false);
-  //new  If the submit button is pressed fetch again for changing marker and Conqure message
   const [buttonPressed, setButtonPressed] = useState(false);
-  const [selectedStation, setSelectedStation] = useState(stations[0]); 
+  const [selectedStation, setSelectedStation] = useState(stations[0].name); 
   const [mapCenter, setMapCenter] = useState({
       lat: stations[0].latitude,
       lng: stations[0].longitude,
     });
 
-
+    
   const navigate = useNavigate(); 
   const location = useLocation(); 
   // location.stateからuserIdとusername
   const userId = location.state?.userId || null;
   const username = location.state?.username || null;
  
-    // 初期状態として最初の駅の位置を設定
+  function MapCenter({ center }) {
+    const map = useMap();
+    
+    useEffect(() => {
+      map.setView(center);
+    }, [center, map]);
+  
+    return null;
+  }
+
+  const updateMapCenter = () => {
+    setButtonPressed(true)
+    const station = stations.find(s => s.name === selectedStation);
+    if (station) {
+      setMapCenter({ lat: station.latitude, lng: station.longitude });
+    }
+  };
+  
+  // セレクトボックスの値が変更されたときに実行される関数
+  const handleStationChange = (event) => {
+    setSelectedStation(event.target.value);
+  };
+  
 
 
   // useLocation位置情報
@@ -83,7 +104,7 @@ const SearchStation = () => {
       const response = await axios.get(`${apiUrl}/izakayas`, {
         params: { latitude, longitude },
       });
-      console.log("データ受取：", response.data);
+      // console.log("データ受取：", response.data);
       setIzakayas(response.data);
     } catch (error) {
       console.error("could not get data", error);
@@ -101,36 +122,14 @@ const SearchStation = () => {
       console.error("could not get data visited", error);
     }
   };
-
-  const handleStationChange = (event) => {
-    const stationName = event.target.value;
-    const selected = stations.find(station => station.name === stationName);
-    
-    if (selected) {
-      setMapCenter({
-        lat: selected.latitude,
-        lng: selected.longitude
-      });
-      
-      setSelectedStation(selected);
-      
-      // 選択された駅のデータに基づいて、必要なデータフェッチやその他の操作をここで行います
-      // fetchData(selected); // これは仮の関数呼び出しです
-    }
-  };
-
+  
   // マウント時にデータ取得
   useEffect(() => {
-    // console.log("latitude2:", latitude);
-    // console.log("longitude2:", longitude);
-    // console.log("userId:", userId + "username",username);
-
-   
-      fetchIzakayas(selectedStation.latitude, selectedStation.longitude); // 酒データ取得を実行
-      // console.log("fetchIzakayasisRunning");
-      fetchVisitedIzakayas();
-  
-  }, [selectedStation,, userId]);
+    const station = stations.find((s) => s.name === selectedStation);
+    if (station) {
+      fetchIzakayas(station.latitude, station.longitude);
+    }
+  }, [selectedStation, userId]);
 
   // 居酒屋を訪問済みとしてマークする関数
   const handleVisit = async () => {
@@ -145,7 +144,7 @@ const SearchStation = () => {
       rating: rating,
       visited_at: new Date().toISOString(),
     };
-    console.log(postData);
+    // console.log(postData);
     try {
       await axios.post(`${apiUrl}/markAsEaten`, postData);
       setButtonPressed(true);
@@ -169,7 +168,7 @@ const SearchStation = () => {
 
   useEffect(() => {
     setButtonPressed(false);
-    fetchIzakayas();
+    fetchIzakayas(mapCenter.lat, mapCenter.lng);
     // console.log("fetchIzakayasisRunning");
     fetchVisitedIzakayas();
     checkAllConqured();
@@ -200,22 +199,20 @@ const SearchStation = () => {
       <div>
       {/* 駅選択セレクトボックス */}
       <div className="station-selector">
-        <label htmlFor="station-select">Choose a station:</label>
-        <select id="station-select" onChange={handleStationChange}>
-          {stations.map((station, index) => (
-            <option key={index} value={station.name}>
-              {station.name}
-            </option>
-          ))}
-        </select>
+      <select className='station-selector-select' value={selectedStation} onChange={handleStationChange}>
+      {stations.map((station, index) => (
+        <option key={index} value={station.name}>{station.name}</option>
+      ))}
+    </select>
+    <button className='station-selector-button' onClick={updateMapCenter}>Select</button>
       </div>
       </div>
       <div className="map-view">
         {/* 緯経取得できているならにマップを表示 */}
-        {latitude && longitude ? (
+        {mapCenter.lat && mapCenter.lng  ? (
           <div className="map-container">
             <MapContainer
-              center={[latitude, longitude]}
+              center={mapCenter}
               zoom={17}
               style={{ height: "100vh", width: "100%" }}
             >
@@ -224,7 +221,7 @@ const SearchStation = () => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
               {/* 現在位置マーカー */}
-              <Marker position={[latitude, longitude]}>
+              <Marker position={[mapCenter.lat, mapCenter.lng]}>
                 <Popup className="popup-current-location">You are here!</Popup>
               </Marker>
               {/* 居酒屋のマーカーをマップに配置 */}
@@ -239,7 +236,7 @@ const SearchStation = () => {
                   }
                   eventHandlers={{
                     click: () => {
-                      console.log("Selected shop:", shop);
+                      // console.log("Selected shop:", shop);
                       setSelectedShop(shop.id);
                       setShowPopup(true);
                     },
@@ -264,6 +261,7 @@ const SearchStation = () => {
                   </Popup>
                 </Marker>
               ))}
+                <MapCenter center={mapCenter} />
             </MapContainer>
           </div>
         ) : (

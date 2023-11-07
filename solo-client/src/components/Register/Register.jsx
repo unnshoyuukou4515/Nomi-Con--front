@@ -41,9 +41,12 @@ export default function RegistrationForm() {
 
   return (
     <>
+        <h1 className='login-header'>呑みコン<span className="login-header2">~Nomi Con~</span></h1>
+
+          <p className = "subtitle">For the "Sake" of Good Times</p>
            {!correctStatusCode ?
         <div className="register-container">
-          <h1 className='register-header'>Registration Form</h1>
+          <h1 className='register-header'>Registration</h1>
           <form onSubmit={handleSubmit(onSubmit)} noValidate className='register-form'>
             <div className='form-group'>
               <label htmlFor='username' className='form-label'>Username</label>

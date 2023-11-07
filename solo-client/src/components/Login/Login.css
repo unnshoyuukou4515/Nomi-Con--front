@@ -1,98 +1,102 @@
-/* label {
-  font-weight: bold;
-  display: flex;
-  color: #FFDE00;
-  margin-bottom: 5px;
-}
+/* Login.css */
 
-.loginHeader{margin:40px;
-  color: #FFDE00
-}
-
-input[type="text"] {
-  display: block;
-  width: 400px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #FFDE00;
-  background-image: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.form-control {
-  margin-bottom: 20px;
-}
-
-.error {
-  color: red;
-  font-size: 12px;
-  text-align: left;
-}
- 
-button.link {
-  background-color: #6da2db;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  display: inline-block;
-  margin: 15px;
-  transition: background-color 0.3s;
-}
-
-button.link:hover {
-  background-color: #0056b3;
-}
-
-button {
-  width: 150px;
-  height: 50px;
-} */
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Potta+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Potta+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Potta+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil+Supplement&display=swap');
 
 .login-container {
-  /* コンテナのスタイル */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; 
+  margin:10px;
+  background-size: cover; 
 }
-
 .login-header {
-  /* ヘッダのスタイル */
+  color: #fff; 
+  font-family: 'Potta One', serif;
+  font-size: 80px;
+  margin-bottom: 0.1rem;
+  text-shadow: 5px 5px 5px rgba(0,0,0,0.8); 
 }
+.login-header2 {
+  color: #fff; 
+  font-family: 'Potta One', serif;
+  font-size: 2rem;
+  margin-bottom: 0.1rem;
+  text-shadow: 5px 5px 5px rgba(0,0,0,0.8); 
+}
+.subtitle {
+  font-family: 'Permanent Marker', serif;
+  color: #ffffff; 
+  text-shadow: 15px 15px 15px rgba(0,0,0,0.8); 
+  margin-bottom: 1rem; 
+  font-size: 1.2rem; 
+  text-align: center; }
 
 .login-form {
-  /* フォームのスタイル */
+  background: rgba(255,255,255,0.9); 
+  padding: 2rem;
+  border-radius: 5px; 
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.5); 
+  width: 100%;
+  max-width: 400px; 
 }
 
 .form-group {
-  /* フォームグループ(ラベルとインプットのコンビ)のスタイル */
+  margin-bottom: 1rem; 
 }
 
 .form-label {
-  /* ラベルのスタイル */
+  font-size: 20px;
+  font-family: 'Noto Sans Tamil Supplement', serif;
+  display: block; 
+  margin-bottom: .5rem; 
+  color: #000000; 
 }
 
 .form-input {
-  /* インプットフィールドのスタイル */
+  width: 100%; 
+  padding: 0.5rem; 
+  border: 1px solid #ddd; 
+  border-radius: 4px; 
 }
 
 .error-message {
-  /* エラーメッセージのスタイル */
+  color: #d9534f; 
+  margin-top: 0.25rem; 
+  font-size: 0.85rem; 
+}
+
+.login-button, .link-button {
+  padding: 0.5rem 1rem; 
+  width: 100%; 
+  border: none;
+  border-radius: 4px; 
+  margin-top: 0.5rem; 
 }
 
 .login-button {
-  /* ログインボタンのスタイル */
-}
-
-.link-button {
-  /* 全リンクボタンの共通スタイル */
+  background-color: #5c98b8;
+  color: white; 
 }
 
 .register-button {
-  /* 登録ボタン専用のスタイル */
+  background-color: #fac780; 
+  color: rgb(6, 6, 6); 
+  text-align: center;
+  display: block; 
+  text-decoration: none; 
+  margin-top: 1rem; 
 }
 
 .login-status {
-  /* ログイン状態表示用のスタイル */
+  margin-top: 1rem; 
+  color: #5bc0de; 
 }
+
+.warning{color:red;
+font-size: 15px;}

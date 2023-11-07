@@ -1,42 +1,8 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* App.css */
+body, html {
+  height: 100%; /* フルスクリーンに背景を設定するには、htmlとbodyの高さを100%に設定する必要があります */
+  margin: 0; /* 余白をリセット */
+  padding: 0; /* パディングをリセット */
+  background: url('https://i.ibb.co/2qNDqFL/d50aaae0-a5ca-4cec-a3ca-f316246ef5fa.jpg') no-repeat center center fixed; 
+  background-size: cover; /* 画像が常にビューポートを覆うように設定 */
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-} */

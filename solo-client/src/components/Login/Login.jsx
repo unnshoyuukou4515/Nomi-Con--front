@@ -16,22 +16,17 @@ export default function LoginForm() {
       const response = await axios.post(`${apiUrl}/login`, data);
 
       // console.log("Login response:", response);
-
-      // userId と username を個別に出力します
       // console.log("User ID:", response.data.userId);
       // console.log("Username:", response.data.username);
-
-
       if (response.status === 200) {
-        console.log("Login successful with data:", response.data);
-        // レスポンスからユーザー情報をセットし、Homeコンポーネントへリダイレクトする
+        // console.log("Login successful with data:", response.data);
         navigate('/home', { state: { userId: response.data.userId, username: response.data.username } });
       } else {
-        setLoginStatus(response.status); // ログイン状態をセットして、適切にハンドルできるようにする
+        setLoginStatus(response.status); 
       }
     } catch (error) {
       setLoginStatus(error.response ? error.response.status : "unknown");
-      let errorMessage = "An error occurred, please try again later.";
+      let errorMessage = "An error occurred, Please try again later.";
       if (error.response && error.response.data && error.response.data.message) {
         errorMessage = error.response.data.message;
       }
@@ -41,7 +36,9 @@ export default function LoginForm() {
 
   return (
     <div className="login-container">
-    <h1 className='login-header'>Login Form</h1>
+    <h1 className='login-header'>呑みコン<span className="login-header2">~Nomi Con~</span></h1>
+
+    <p className = "subtitle">For the "Sake" of Good Times</p>
     <form onSubmit={handleSubmit(onSubmit)} noValidate className='login-form'>
       <div className='form-group'>
         <label htmlFor='username' className='form-label'>Username</label>
@@ -66,7 +63,20 @@ export default function LoginForm() {
           })} 
         />
         {errors.password && <p className='error-message'>{errors.password.message}</p>}
-      </div>         
+      </div> 
+      <div className='form-group'>
+          <label htmlFor='adultConfirmation' className='form-label'>
+            <input
+              type='checkbox'
+              id='adultConfirmation'
+              {...register("adultConfirmation", {
+                required: "You must confirm you are an adult."
+              })}
+            />
+            <span className='warning'>I confirm that I am at least 20 years old</span>
+          </label>
+          {errors.adultConfirmation && <p className='error-message'>{errors.adultConfirmation.message}</p>}
+        </div>        
       <button type='submit' className='login-button'>Log In</button>
     </form>
     <Link to="/register"><button className='link-button register-button'>Register</button></Link>

@@ -14,7 +14,7 @@ function Home() {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-         console.log("Current Position:", position); 
+        //  console.log("Current Position:", position); 
         setUserLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -36,8 +36,7 @@ function Home() {
     // 位置とユーザーID、名前をマップへ
     navigate('/map', { state: { location: userLocation, userId ,username} });
   };
-
-  //not yet
+  //位置とユーザーID、名前を駅別へ
   const goToSearch = () => {
     navigate('/searchstation',{ state: { location: userLocation, userId ,username} });
   };
@@ -48,7 +47,8 @@ function Home() {
 
   return (
 <div className="home-container">
-  <h1 className="home-title">let's get drunk! {username || 'Guest'}!</h1> 
+<h1 className='login-header'>呑みコン<span className="login-header2">~Nomi Con~</span></h1>
+  <h1 className="home-title">Let's Get Drunk! {username || 'Guest'}!</h1> 
   <div>
     <button className="home-button home-map-button" onClick={goToMap}>View Map</button>
   </div>
