@@ -5,10 +5,11 @@
     cursor: pointer; 
     display: block; 
     width: 250px; 
+    height: 50px;
     transition: background-color 0.3s; 
     background-color: rgb(245, 146, 202) ; 
     color: white;
-    margin: 10px 0; 
+ 
   }
   
   .VeiwMap-toHome:hover {
@@ -54,15 +55,14 @@
       margin:auto;
       top: 10px; 
        width: 95%;
-       height: 45px;
+       height: 60px;
       z-index: 5; 
     }
     .hotpepper-credit {
-      margin-top:-15px; 
+      margin-top:-5px; 
     }
     .station-selector-select {
       width:95%;
-     
       font-size: 16px;    
       margin: auto;  
       margin-top: 40px;

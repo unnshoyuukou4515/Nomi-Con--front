@@ -13,8 +13,8 @@ body {
     display: block; 
     width: 250px; 
     transition: background-color 0.3s; 
-    background-color: rgb(238, 146, 245) ; 
-    color: white;
+    background-color: rgb(234, 245, 146) ; 
+    color: black;
     z-index: 5; 
   }
 
@@ -95,6 +95,7 @@ body {
       margin:auto;
      top: 10px; 
       width: 95%;
+      height: 60px;
      z-index: 5; 
    }
   }

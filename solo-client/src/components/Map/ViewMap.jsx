@@ -225,7 +225,7 @@ const ViewMap = () => {
                   </option>
                 ))}
               </select>
-              {/* 送信ボタン */}
+              {/* 送信 */}
               <button
                 className="submit-rating"
                 onClick={() => handleVisit(selectedShop)}

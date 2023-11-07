@@ -48,7 +48,7 @@ function Home() {
   return (
 <div className="home-container">
 <h1 className='login-header'>呑みコン<span className="login-header2">~Nomi Con~</span></h1>
-  <h1 className="home-title">Let's Get Drunk! {username || 'Guest'}!</h1> 
+  <h1 className="home-title">Let's Drink! {username || 'Guest'}!</h1> 
   <div>
     <button className="home-button home-map-button" onClick={goToMap}>View Map</button>
   </div>

@@ -247,7 +247,7 @@ const SearchStation = () => {
                       <img
                         src={shop.photo.pc.l}
                         alt={shop.name}
-                        style={{ width: "150px", height: "auto" }}
+                        style={{ width: "100px", height: "auto" }}
                       />
                       <p>{shop.name}</p>
                       <a
