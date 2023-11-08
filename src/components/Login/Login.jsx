@@ -12,6 +12,7 @@ export default function LoginForm() {
 
   const onSubmit = async (data) => {
     try {
+      console.log(VITE_API_URL)
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
       const response = await axios.post(`${apiUrl}/login`, data);
 
