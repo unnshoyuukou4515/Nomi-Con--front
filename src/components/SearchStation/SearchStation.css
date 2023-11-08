@@ -1,0 +1,95 @@
+.VeiwMap-toHome { 
+    border: none; 
+    border-radius: 4px; 
+    font-size: 1rem;
+    cursor: pointer; 
+    display: block; 
+    width: 250px; 
+    height: 50px;
+    transition: background-color 0.3s; 
+    background-color: rgb(245, 146, 202) ; 
+    color: white;
+ 
+  }
+  
+  .VeiwMap-toHome:hover {
+    background-color: #45a049;
+  }
+  
+  
+  .station-selector-select {
+    width: 500px; 
+    height: 60px; 
+    padding: 5px; 
+    cursor: pointer; 
+    font-size: 25px;
+  }
+ 
+  .station-selector-button {
+    width: 100px; 
+    height: 60px; 
+    padding: 5px; 
+    font-size: 25px; 
+    cursor: pointer; 
+    margin-left: 10px;
+  }
+  
+  
+  .station-selector-button:hover {
+    background-color: #1E88E5;
+  }
+  
+
+  .hotpepper-credit {
+    margin-bottom: 10px; 
+  }
+  
+  .hotpepper-credit img {
+    max-width: 100%; 
+    height: auto; 
+  }
+  
+
+  @media (max-width: 600px) {
+    .VeiwMap-toHome {  
+      margin:auto;
+      top: 10px; 
+       width: 95%;
+       height: 60px;
+      z-index: 5; 
+    }
+    .hotpepper-credit {
+      margin-top:-5px; 
+    }
+    .station-selector-select {
+      width:95%;
+      font-size: 16px;    
+      margin: auto;  
+      margin-top: 40px;
+      display: block;
+    }
+  
+
+    .station-selector button {
+      margin: auto;
+      font-size: 16px; 
+      padding: 10px; 
+      display: block; 
+      width: calc(100% - 20px); 
+    }
+  
+
+    .station-selector {
+      text-align: center; 
+    }
+  
+  
+    .station-selector-container {
+      display: flex; 
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; 
+      padding: 10px; 
+    }
+  
+  }

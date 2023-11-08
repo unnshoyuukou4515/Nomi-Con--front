@@ -1,0 +1,92 @@
+/* Home.css */
+@import url('https://fonts.googleapis.com/css2?family=Lemonada&display=swap');
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: transparent; 
+  padding: 20px; 
+}
+
+
+.home-title {
+  font-family: 'Lemonada', serif;
+  font-size: 30px; 
+  color: #333; 
+  margin-bottom: 40px; 
+}
+
+
+.login-header {
+  text-align: center; 
+  color: #fff; 
+  font-family: 'Potta One', serif;
+  font-size: 80px;
+  margin-bottom: 0.1rem;
+  text-shadow: 5px 5px 5px rgba(0,0,0,0.8); 
+}
+.login-header2 {
+  color: #fff; 
+  font-family: 'Potta One', serif;
+  font-size: 2rem;
+  margin-bottom: 0.1rem;
+  text-shadow: 5px 5px 5px rgba(0,0,0,0.8); 
+}
+.subtitle {
+  font-family: 'Permanent Marker', serif;
+  color: #ffffff; 
+  text-shadow: 15px 15px 15px rgba(0,0,0,0.8); 
+  margin-bottom: 1rem; 
+  font-size: 1.2rem; }
+
+  .home-title {
+    color: white; 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+    margin: 0.5em 0; 
+  }
+
+.home-button {
+  padding: 1em 2em; 
+  border: none; 
+  border-radius: 4px; 
+  font-size: 20px;
+  cursor: pointer; 
+  display: block; 
+  width: 250px; 
+  height: 60px;
+  margin: 10px auto; 
+  text-align: center; 
+  transition: background-color 0.3s; 
+}
+
+
+.home-map-button {
+  background-color: #4CAF50; 
+  color: white;
+}
+
+.home-map-button:hover {
+  background-color: #45a049; 
+}
+
+
+.home-search-button {
+  background-color: #008CBA;
+  color: white;
+}
+
+.home-search-button:hover {
+  background-color: #007B9E; 
+}
+
+
+.home-history-button {
+  background-color: #f44336; 
+  color: white;
+}
+
+.home-history-button:hover {
+  background-color: #da190b; 
+}
