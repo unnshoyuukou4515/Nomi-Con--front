@@ -85,7 +85,7 @@ const SearchStation = () => {
     }
   };
   
-  // セレクトボックスの値が変更されたときに実行される関数
+  // セレクトボックスの値が変更されたときに実行
   const handleStationChange = (event) => {
     setSelectedStation(event.target.value);
   };
@@ -94,7 +94,7 @@ const SearchStation = () => {
 
   // useLocation位置情報
   const goHome = () => {
-    navigate("/home", { state: { userId: userId, username: username } }); // Homeコンポーネントに渡す
+    navigate("/home", { state: { userId: userId, username: username } }); // Homeコンポーネントに
   };
 
 

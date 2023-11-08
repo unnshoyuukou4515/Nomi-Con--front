@@ -67,20 +67,20 @@
 
   .submit-rating,
   .cancel-button {
-    padding: 10px 20px; /* パディングを追加してボタンを大きくします */
-    font-size: 1.2em; /* フォントサイズを大きくします */
-    border: none; /* ボーダーを非表示にします（必要に応じて） */
-    border-radius: 5px; /* 角を丸くします */
-    cursor: pointer; /* カーソルをポインターにします */
-    outline: none; /* アウトラインを非表示にします */
-    margin: 5px; /* マージンを追加してボタンの間にスペースを作ります */
-    transition: background-color 0.3s ease; /* 背景色の変化にアニメーションをつけます */
+    padding: 10px 20px; 
+    font-size: 1.2em; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    outline: none; 
+    margin: 5px;
+    transition: background-color 0.3s ease; 
   }
   
   .submit-rating:hover,
   .cancel-button:hover {
-    background-color: #555; /* ホバー時の背景色 */
-    color: white; /* ホバー時の文字色 */
+    background-color: #555; 
+    color: white; 
   }
 
 
