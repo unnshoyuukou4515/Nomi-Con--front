@@ -12,10 +12,10 @@ export default function LoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      console.log(VITE_API_URL)
+      
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
       const response = await axios.post(`${apiUrl}/login`, data);
-
+      
       // console.log("Login response:", response);
       // console.log("User ID:", response.data.userId);
       // console.log("Username:", response.data.username);
@@ -77,10 +77,11 @@ export default function LoginForm() {
             <span className='warning'>I confirm that I am at least 20 years old</span>
           </label>
           {errors.adultConfirmation && <p className='error-message'>{errors.adultConfirmation.message}</p>}
-        </div>        
-      <button type='submit' className='login-button'>Log In</button>
+          </div>        
+      <button type='submit' className='login-button'>Log In</button>   
+      <Link to="/register"><button className='link-button register-button'>Register</button></Link>
     </form>
-    <Link to="/register"><button className='link-button register-button'>Register</button></Link>
+ 
     {loginStatus && <div className="login-status">Login status: {loginStatus}</div>}
   </div>
   );
