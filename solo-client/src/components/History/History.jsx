@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import "./History.css";
 import axios from 'axios';
 
-const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 const History = () => {
   const [error, setError] = useState(null);
