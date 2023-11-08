@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Register.css';
-import LoginForm from '../Login/Login'; // 'Login'フォルダ内の'LoginForm.jsx'からインポート
+import LoginForm from '../Login/Login'; 
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import axios from "axios";
