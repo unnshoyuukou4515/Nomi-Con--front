@@ -16,9 +16,9 @@ export default function LoginForm() {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
       const response = await axios.post(`${apiUrl}/login`, data);
 
-      // console.log("Login response:", response);
-      // console.log("User ID:", response.data.userId);
-      // console.log("Username:", response.data.username);
+      console.log("Login response:", response);
+      console.log("User ID:", response.data.userId);
+      console.log("Username:", response.data.username);
       if (response.status === 200) {
         // console.log("Login successful with data:", response.data);
         navigate('/home', { state: { userId: response.data.userId, username: response.data.username } });
@@ -79,9 +79,10 @@ export default function LoginForm() {
           {errors.adultConfirmation && <p className='error-message'>{errors.adultConfirmation.message}</p>}
         </div>        
       <button type='submit' className='login-button'>Log In</button>
-    </form>
-    <Link to="/register"><button className='link-button register-button'>Register</button></Link>
+      <Link to="/register"><button className='link-button register-button'>Register</button></Link>
     {loginStatus && <div className="login-status">Login status: {loginStatus}</div>}
+    </form>
+
   </div>
   );
 }

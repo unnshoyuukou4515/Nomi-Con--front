@@ -91,8 +91,9 @@ export default function RegistrationForm() {
             </div>
 
             <button type='submit' className='register-button'>Register</button>
+            <Link to="/" className='back-to-login-link'><button className='back-to-login-button'>Back To Login</button></Link>
           </form>
-          <Link to="/" className='back-to-login-link'><button className='back-to-login-button'>Back To Login</button></Link>
+          
         </div> :
         <LoginForm />
       }
