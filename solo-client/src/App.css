@@ -1,8 +1,8 @@
 /* App.css */
 body, html {
-  height: 100%; /* フルスクリーンに背景を設定するには、htmlとbodyの高さを100%に設定する必要があります */
-  margin: 0; /* 余白をリセット */
-  padding: 0; /* パディングをリセット */
-  background: url('https://i.ibb.co/2qNDqFL/d50aaae0-a5ca-4cec-a3ca-f316246ef5fa.jpg') no-repeat center center fixed; 
-  background-size: cover; /* 画像が常にビューポートを覆うように設定 */
+  height: 100%; 
+  margin: 0; 
+  padding: 0; 
+  background: url('https://i.ibb.co/qstRN8P/d50aaae0-a5ca-4cec-a3ca-f316246ef5fa.jpg') no-repeat center center fixed; 
+  background-size: cover; 
 }

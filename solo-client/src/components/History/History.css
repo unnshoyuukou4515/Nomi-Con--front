@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');  
+
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
@@ -12,17 +14,24 @@ body {
     display: block; 
     width: 250px; 
     transition: background-color 0.3s; 
-    background-color: rgb(234, 245, 146) ; 
+    background-color: rgb(146, 149, 245) ; 
     color: black;
     z-index: 5; 
+    opacity: 0.7;
   }
 
+  .goHome-button:hover {
+    background-color: #f09595; 
+  }
+  
   .visitedIzakayas-title {
     font-size: 30px; 
     color: white; 
     padding: 20px 0; 
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
     text-align: center;
+    font-family: 'Caveat', serif;
+    font-size: 60px;
   }
 
   

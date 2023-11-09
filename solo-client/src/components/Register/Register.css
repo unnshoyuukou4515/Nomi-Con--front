@@ -73,6 +73,7 @@
   height: 50px;
   border-radius: 4px; 
   margin-top: 10px; 
+  margin-bottom: 10px;
   cursor: pointer; 
 }
 .back-to-login-button {
@@ -83,7 +84,6 @@
   width:100%;
   height: 50px;
   border-radius: 4px; 
-  margin-top: 10px; 
   cursor: pointer; 
 }
 .register-button:hover {

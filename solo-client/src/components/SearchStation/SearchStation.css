@@ -7,8 +7,9 @@
     width: 250px; 
     height: 50px;
     transition: background-color 0.3s; 
-    background-color: rgb(245, 146, 202) ; 
+    background-color: rgb(146, 149, 245) ; 
     color: white;
+    opacity: 0.7;
  
   }
   
@@ -16,10 +17,14 @@
     background-color: #45a049;
   }
   
+  .station-selector{
+    text-align: center;
+  }
   
   .station-selector-select {
     width: 500px; 
-    height: 60px; 
+    height: 40px; 
+    left:50px;
     padding: 5px; 
     cursor: pointer; 
     font-size: 25px;
@@ -27,7 +32,7 @@
  
   .station-selector-button {
     width: 100px; 
-    height: 60px; 
+    height: 40px; 
     padding: 5px; 
     font-size: 25px; 
     cursor: pointer; 
@@ -48,7 +53,7 @@
     max-width: 100%; 
     height: auto; 
   }
-  
+  .congratulations-button{opacity: 0;}
 
   @media (max-width: 600px) {
     .VeiwMap-toHome {  

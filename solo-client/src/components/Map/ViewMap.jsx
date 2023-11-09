@@ -144,7 +144,7 @@ const ViewMap = () => {
       <button className="ViewMap-toHome" onClick={goHome}>
         Go Home
       </button>
-      <div className='viewmap-title'>Izakaya Around Your Location</div>
+      <div className='viewmap-title'>Izakaya Around You</div>
       
       <div className="map-view">
         {/* 緯経取得できているならマップを表示 */}

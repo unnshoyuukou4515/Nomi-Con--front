@@ -63,30 +63,33 @@
 
 
 .home-map-button {
-  background-color: #4CAF50; 
+  background-color: #4f9b50; 
   color: white;
+  opacity: 0.7;
 }
 
 .home-map-button:hover {
-  background-color: #45a049; 
+  background-color: #143a16; 
 }
 
 
 .home-search-button {
   background-color: #008CBA;
   color: white;
+  opacity: 0.7;
 }
 
 .home-search-button:hover {
-  background-color: #007B9E; 
+  background-color: #035970; 
 }
 
 
 .home-history-button {
   background-color: #f44336; 
   color: white;
+  opacity: 0.7;
 }
 
 .home-history-button:hover {
-  background-color: #da190b; 
+  background-color: #970f06; 
 }

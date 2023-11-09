@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');  
+  
   .overlay-content {
     position: absolute;
     top: 0;
@@ -17,9 +19,10 @@
     display: block; 
     width: 250px; 
     transition: background-color 0.3s; 
-    background-color: rgb(146, 208, 245) ; 
+    background-color: rgb(146, 149, 245) ; 
     color: white;
     z-index: 5; 
+    opacity: 0.7;
   }
   
   .ViewMap-toHome:hover {
@@ -51,14 +54,15 @@
     position: fixed;
     left: 50%;
     top: 50%;
-    transform: translate(10%, 10%);
+    transform: translate(30%, 10%);
     background: rgba(255, 255, 255, 0.9); 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     z-index: 10;
     width: auto; 
-    max-width: 200px; 
+    max-width: 150px; 
+    height: auto;
     box-sizing: border-box; 
   }
   .popUpStoreName{
@@ -67,8 +71,9 @@
 
   .submit-rating,
   .cancel-button {
-    padding: 10px 20px; 
-    font-size: 1.2em; 
+    background-color: aquamarine;
+    padding: 5px 10px; 
+    font-size: 15px; 
     border: none; 
     border-radius: 5px; 
     cursor: pointer; 
@@ -89,8 +94,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     background: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
@@ -103,15 +108,31 @@
     background: url('https://i.ibb.co/jGfJ78X/OIG-1.jpg') no-repeat center center;
     background-size: cover; 
     padding: 200px;
+    margin-top: 50px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     text-align: center;
     color: white; 
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     font-size: 40px;
-   
   }
    
+  .messageButton{border: none; 
+    border-radius: 4px; 
+    font-size: 1rem;
+    cursor: pointer; 
+    display: block; 
+    width: 250px; 
+    height: 50px;
+    transition: background-color 0.3s; 
+    background-color: rgb(146, 149, 245) ; 
+    color: white;
+    opacity: 0;
+  }
+  
+  .messageButton:hover {
+    background-color: rgb(239, 240, 176)
+  }
 
   
 
@@ -141,11 +162,12 @@
 
   
   .viewmap-title {
-    font-size: 30px; 
+    font-size: 50px; 
     color: white; 
     padding: 20px 0; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    text-shadow: 12px 12px 8px rgba(0, 0, 0, 0.5); 
     text-align: center;
+    font-family: 'Caveat', serif;
   }
 
   @media (max-width: 600px) {

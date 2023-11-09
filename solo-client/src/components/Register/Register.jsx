@@ -25,6 +25,7 @@ export default function RegistrationForm() {
 
   const onSubmit = async (data) => {
     try {
+      // console.log(data)
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
       const url = `${apiUrl}/createNewAccount`;
       const response = await axios.post(url, data);
@@ -41,10 +42,12 @@ export default function RegistrationForm() {
 
   return (
     <>
-        <h1 className='login-header'>呑みコン<span className="login-header2">~Nomi Con~</span></h1>
+
+           {!correctStatusCode ?
+           <div>        
+            <h1 className='login-header'>呑みコン<span className="login-header2">~Nomi Con~</span></h1>
 
           <p className = "subtitle">For the "Sake" of Good Times</p>
-           {!correctStatusCode ?
         <div className="register-container">
           <h1 className='register-header'>Registration</h1>
           <form onSubmit={handleSubmit(onSubmit)} noValidate className='register-form'>
@@ -93,7 +96,7 @@ export default function RegistrationForm() {
             <button type='submit' className='register-button'>Register</button>
             <Link to="/" className='back-to-login-link'><button className='back-to-login-button'>Back To Login</button></Link>
           </form>
-          
+          </div> 
         </div> :
         <LoginForm />
       }
