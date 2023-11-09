@@ -16,11 +16,11 @@ export default function LoginForm() {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
       const response = await axios.post(`${apiUrl}/login`, data);
       
-      console.log("Login response:", response);
-      console.log("User ID:", response.data.userId);
-      console.log("Username:", response.data.username);
+      // console.log("Login response:", response);
+      // console.log("User ID:", response.data.userId);
+      // console.log("Username:", response.data.username);
       if (response.status === 200) {
-        console.log("Login successful with data:", response.data);
+        // console.log("Login successful with data:", response.data);
         navigate('/home', { state: { userId: response.data.userId, username: response.data.username } });
       } else {
         setLoginStatus(response.status); 
