@@ -94,6 +94,42 @@ body {
     text-decoration: underline;
   }
   
+
+
+  .delete-button {
+    padding: 0.5em 1em; 
+    border: none; 
+    border-radius: 4px; 
+    font-size: 0.9rem;
+    cursor: pointer; 
+    background-color: #ff4d4d; /* Deleteボタンの背景色 */
+    color: white; /* Deleteボタンのテキスト色 */
+    margin-top: 10px; /* 上部の余白 */
+    transition: background-color 0.3s; /* 背景色のトランジション */
+  }
+  
+  .delete-button:hover {
+    background-color: #cc0000; /* ホバー状態の背景色 */
+  }
+  
+  /* 新しいスタイル */
+  .rating-select {
+    padding: 0.5em; /* パディング */
+    border: 1px solid #ddd; /* 境界線 */
+    border-radius: 4px; /* 境界線の丸み */
+    margin-top: 10px; /* 上部の余白 */
+  }
+  
+  /* 新しいスタイル */
+  .history-container {
+    padding: 20px; /* コンテナ全体のパディング */
+  }
+  
+  /* 新しいスタイル */
+  .error-message {
+    color: #ff4d4d; /* エラーメッセージの色 */
+    text-align: center; /* 中央揃え */
+  }
   
   @media (max-width: 600px) {
     .izakaya-list {

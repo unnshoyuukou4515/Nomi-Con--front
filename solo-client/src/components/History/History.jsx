@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./History.css";
-import axios from 'axios';
+import axios from "axios";
 
 const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
@@ -10,62 +10,126 @@ const History = () => {
   const [visitedIzakaya, setVisitedIzakaya] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
-
   const { userId } = location.state || {};
-  const {username} = location.state || {};
+  const { username } = location.state || {};
+
+
+  const fetchVisitedIzakaya = async () => {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/user/${userId}/visited-izakayas`
+      );
+      const visitedIzakayaRating = response.data; // すでにrestaurant_idとratingが含まれている
+      const izakayaPromises = visitedIzakayaRating.map(
+        (visited) =>
+          axios
+            .get(`${apiUrl}/search-by-id/${visited.restaurant_id}`)
+            .then((res) => ({
+              ...res.data.results.shop[0],
+              rating: visited.rating,
+            }))
+      );
+      const izakayaResult = await Promise.all(izakayaPromises);
+      setVisitedIzakaya(izakayaResult.reverse());
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // Visited居酒屋のIDを取得
   useEffect(() => {
-    const fetchVisitedIzakaya = async () => {
-      if (!userId) {
-        setError('User ID is not provided');
-        return;
-      }
-      
-      try {
-
-        const response = await axios.get(`${apiUrl}/user/${userId}/visited-izakayas`);
-        // console.log('Response data:', response.data);
-        const noDupIzakayaIds = [...new Set(response.data.map(izakaya => izakaya.restaurant_id))];
-        const izakayaPromises = noDupIzakayaIds.map(id =>
-          axios.get(`${apiUrl}/search-by-id/${id}`)
-        );
-        const izakayasResponses = await Promise.all(izakayaPromises);
-        setVisitedIzakaya(izakayasResponses.map(res => res.data.results.shop[0]).reverse());
-      } catch (error) {
-        setError('error');
-        console.error(error);
-      }
-    };
     fetchVisitedIzakaya();
   }, [userId]);
 
-
-  const goHome = () => {
-    navigate('/home', { state: { userId: userId, username: username } });
+  const updateRating = async (restaurantId, newRating) => {
+    try {
+      const response = await axios.put(
+        `${apiUrl}/user/${userId}/restaurant/${restaurantId}/rate`,
+        {
+          rating: newRating,
+        }
+      );
+      console.log(response.data.message);
+      fetchVisitedIzakaya();
+    } catch (error) {
+      console.error("Failed to update rating:", error);
+    }
   };
 
+
+  const deleteVisitedIzakaya = async (restaurantId) => {
+    try {
+      await axios.delete(`${apiUrl}/user/${userId}/restaurant/${restaurantId}`);
+
+      setVisitedIzakaya(currentIzakayas => 
+        currentIzakayas.filter(izakaya => izakaya.id !== restaurantId)
+      );
+    } catch (error) {
+      console.error('Failed to delete visit record:', error);
+    }
+  };
+
+  const goHome = () => {
+    navigate("/home", { state: { userId: userId, username: username } });
+  };
   return (
-    <div>
-      <button className='goHome-button' onClick={goHome}>Go Home</button>
-      <div className="hotpepper-credit">
-        <a href="https://www.hotpepper.jp/" target="_blank" rel="noopener noreferrer">
-          <img src="https://webservice.recruit.co.jp/banner/hotpepper-s.gif" alt="提供：ホットペッパー Webサービス"/>
-        </a>
-      </div>
-      <div className="visited-izakayas">
-        <h1 className='visitedIzakayas-title'>Visited Izakayas</h1>
-        {error && <p>Error: {error}</p>}
-        <div className="izakaya-list">
-          {visitedIzakaya.map((izakaya, index) => (
-            <div key={izakaya.id} className="izakaya-item">
-              <div className="izakaya-info">
-                <h3>{izakaya.name}</h3>
-                <img src={izakaya.photo.pc.l} alt={izakaya.name} style={{width: '150px', height: 'auto'}} />
-                <p>{izakaya.address}</p>
-                <p>{izakaya.station_name}駅</p>
-                <p>{izakaya.open}</p>
-                <a href={izakaya.urls.pc} target="_blank" rel="noopener noreferrer">Visit Hotpepper page</a>
+    <div className="history-container">
+    <button className="goHome-button" onClick={goHome}>
+      Go Home
+    </button>
+    <div className="hotpepper-credit">
+      <a
+        href="https://www.hotpepper.jp/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          className="hotpepper-logo"
+          src="https://webservice.recruit.co.jp/banner/hotpepper-s.gif"
+          alt="提供：ホットペッパー Webサービス"
+        />
+      </a>
+    </div>
+    <div className="visited-izakayas">
+      <h1 className="visitedIzakayas-title">Visited Izakayas</h1>
+
+      <div className="izakaya-list">
+        {visitedIzakaya.map((izakaya) => (
+          <div key={izakaya.id} className="izakaya-item">
+            <div className="izakaya-info">
+              <h3 className="izakaya-name">{izakaya.name}</h3>
+              <img
+                className="izakaya-image"
+                src={izakaya.photo.pc.l}
+                alt={izakaya.name}
+                style={{ width: "150px", height: "auto" }}
+              />
+              <p className="izakaya-address">{izakaya.address}</p>
+              <p className="izakaya-station">{izakaya.station_name}駅</p>
+              <p className="izakaya-open">Open: {izakaya.open}</p>
+              <p className="izakaya-rating">Rating: {izakaya.rating} / 5</p>
+              <a
+                className="izakaya-link"
+                href={izakaya.urls.pc}
+                target="_blank"
+              >
+                Visit Hotpepper page
+              </a>
+              <select
+                className="rating-select"
+                value={izakaya.rating}
+                onChange={(event) => updateRating(izakaya.id, event.target.value)}
+              >
+                <option value="">Select a rating</option>
+                {[...Array(5)].map((_, i) => (
+                  <option key={i} value={i + 1}>
+                    {i + 1}
+                  </option>
+                ))}
+              </select>
+              <button className="delete-button" onClick={() => deleteVisitedIzakaya(izakaya.id)}>
+                Delete History
+              </button>
               </div>
             </div>
           ))}
