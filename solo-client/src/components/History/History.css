@@ -1,146 +1,133 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');  
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
 body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-  }
-  
-  .goHome-button {
-    padding: 1em 2em; 
-    border: none; 
-    border-radius: 4px; 
-    font-size: 1rem;
-    cursor: pointer; 
-    display: block; 
-    width: 250px; 
-    transition: background-color 0.3s; 
-    background-color: rgb(146, 149, 245) ; 
-    color: black;
-    z-index: 5; 
-    opacity: 0.7;
-  }
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+}
 
-  .goHome-button:hover {
-    background-color: #f09595; 
-  }
-  
-  .visitedIzakayas-title {
-    font-size: 30px; 
-    color: white; 
-    padding: 20px 0; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
-    text-align: center;
-    font-family: 'Caveat', serif;
-    font-size: 60px;
-  }
+.goHome-button {
+  padding: 1em 2em;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block;
+  width: 250px;
+  transition: background-color 0.3s;
+  background-color: rgb(146, 149, 245);
+  color: black;
+  z-index: 5;
+  opacity: 0.7;
+}
 
-  
+.goHome-button:hover {
+  background-color: #f09595;
+}
 
-  .hotpepper-credit {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+.visitedIzakayas-title {
+  font-size: 30px;
+  color: white;
+  padding: 20px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  font-family: 'Caveat', serif;
+  font-size: 60px;
+}
+
+.hotpepper-credit {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.visited-izakayas p {
+  color: red;
+  text-align: center;
+}
 
 
- 
-  .visited-izakayas p {
-    color: red;
-    text-align: center;
-  }
-  
+.izakaya-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+}
 
+.izakaya-item {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.izakaya-info {
+  text-align: center;
+}
+
+.izakaya-info img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.izakaya-info h3 {
+  margin-bottom: 5px;
+}
+
+.izakaya-info a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 1em;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.izakaya-info a:hover {
+  text-decoration: underline;
+}
+
+.delete-button {
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #ff4d4d;
+  color: white;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #cc0000;
+}
+
+
+.rating-select {
+  padding: 0.5em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.history-container {
+  padding: 20px;
+}
+
+.error-message {
+  color: #ff4d4d;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
   .izakaya-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-    gap: 20px; 
-    padding: 0 20px; 
+    grid-template-columns: 1fr;
   }
-  
-  .izakaya-item {
-    background: #f9f9f9; 
-    border: 1px solid #ddd; 
-    padding: 20px; 
-    border-radius: 5px; 
-  }
-  
- 
-  .izakaya-info {
-    text-align: center;
-  }
-  
-  
-  .izakaya-info img {
-    max-width: 100%; 
-    height: auto; 
-    margin-bottom: 10px;
-  }
-  
-  
-  .izakaya-info h3 {
-    margin-bottom: 5px; 
-  }
-  
-  
-  .izakaya-info a {
-    color: #007bff; 
-    text-decoration: none; 
-    font-size: 0.9em;
-    display: inline-block; 
-    margin-top: 10px; 
-  }
-  
-  
-  .izakaya-info a:hover {
-    text-decoration: underline;
-  }
-  
 
-
-  .delete-button {
-    padding: 0.5em 1em; 
-    border: none; 
-    border-radius: 4px; 
-    font-size: 0.9rem;
-    cursor: pointer; 
-    background-color: #ff4d4d; /* Deleteボタンの背景色 */
-    color: white; /* Deleteボタンのテキスト色 */
-    margin-top: 10px; /* 上部の余白 */
-    transition: background-color 0.3s; /* 背景色のトランジション */
+  .goHome-button {
+    margin: auto;
+    top: 10px;
+    width: 95%;
+    height: 60px;
+    z-index: 5;
   }
-  
-  .delete-button:hover {
-    background-color: #cc0000; /* ホバー状態の背景色 */
-  }
-  
-  /* 新しいスタイル */
-  .rating-select {
-    padding: 0.5em; /* パディング */
-    border: 1px solid #ddd; /* 境界線 */
-    border-radius: 4px; /* 境界線の丸み */
-    margin-top: 10px; /* 上部の余白 */
-  }
-  
-  /* 新しいスタイル */
-  .history-container {
-    padding: 20px; /* コンテナ全体のパディング */
-  }
-  
-  /* 新しいスタイル */
-  .error-message {
-    color: #ff4d4d; /* エラーメッセージの色 */
-    text-align: center; /* 中央揃え */
-  }
-  
-  @media (max-width: 600px) {
-    .izakaya-list {
-      grid-template-columns: 1fr; 
-    }
-    .goHome-button {
-      margin:auto;
-     top: 10px; 
-      width: 95%;
-      height: 60px;
-     z-index: 5; 
-   }
-  }
-  
+}
