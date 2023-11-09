@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');  
-  
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Edu+TAS+Beginner&display=swap');
+
+
   .overlay-content {
     position: absolute;
     top: 0;
@@ -94,13 +96,14 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
+    font-family: 'Edu TAS Beginner', serif;
   }
   
   

@@ -22,6 +22,16 @@ const izakayaIcon = new L.Icon({
   iconAnchor: [17, 35],
   popupAnchor: [0, -35],
 });
+
+//現在位置アイコン（Leafletのデフォルトが使えないため）
+const drunkguy = new L.Icon({
+  iconUrl: 'https://i.ibb.co/Q8hKNGB/3a1f104dd63aa49ddb01f711654e8119-t-removebg-preview.png',
+  iconSize: [100, 100], 
+  iconAnchor: [25, 50], 
+  popupAnchor: [0, -50], 
+});
+
+
 const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 const stations = [
@@ -222,7 +232,7 @@ const SearchStation = () => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
               {/* 現在位置マーカー */}
-              <Marker position={[mapCenter.lat, mapCenter.lng]}>
+              <Marker position={[mapCenter.lat, mapCenter.lng]} icon={drunkguy}>
                 <Popup className="popup-current-location">You are here!</Popup>
               </Marker>
               {/* 居酒屋のマーカーをマップに配置 */}
