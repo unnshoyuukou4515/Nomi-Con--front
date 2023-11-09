@@ -44,7 +44,7 @@ body {
   text-align: center;
 }
 
-
+.izakaya-name{font-size: 25px;}
 .izakaya-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -84,7 +84,10 @@ body {
 .izakaya-info a:hover {
   text-decoration: underline;
 }
+.izakaya-station{color:black}
 
+.izakaya-rating{font-size: 1.5rem;
+color:#cc0000}
 .delete-button {
   padding: 0.5em 1em;
   border: none;
