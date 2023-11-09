@@ -50,7 +50,7 @@ const stations = [
   { name: "Kichijoji Station", latitude: 35.702259, longitude: 139.580333 },
   { name: "Harajuku Station", latitude: 35.670168, longitude: 139.702687 },
   { name: "Asakusa Station", latitude: 35.714555, longitude: 139.798023 },
-  // その他の駅があれば、同じフォーマットで追加できます。
+ 
 ];
 
 const SearchStation = () => {
