@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <h3 align="center">Nomi-Con</h3>
+    <h3 align="center">Nomi-Con FrontEnd</h3>
 
   <p align="center">
     Searching and Finding Izakaya Near your Location or to several Stations.
