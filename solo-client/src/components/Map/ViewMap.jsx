@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { useNavigate } from 'react-router-dom';
-import "./ViewMap.css"
-import axios from 'axios';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useNavigate } from "react-router-dom";
+import "./ViewMap.css";
+import axios from "axios";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 // 訪問済みアイコン
 const visitedIzakayaIcon = new L.Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/512/1321/1321913.png',
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/1321/1321913.png",
   iconSize: [35, 35],
   iconAnchor: [17, 35],
   popupAnchor: [0, -35],
@@ -17,7 +17,7 @@ const visitedIzakayaIcon = new L.Icon({
 
 // 通常アイコン
 const izakayaIcon = new L.Icon({
-  iconUrl: 'https://i.ibb.co/J5wwLM2/041818-removebg-preview.png',
+  iconUrl: "https://i.ibb.co/J5wwLM2/041818-removebg-preview.png",
   iconSize: [55, 55],
   iconAnchor: [17, 35],
   popupAnchor: [0, -35],
@@ -25,15 +25,14 @@ const izakayaIcon = new L.Icon({
 
 //現在位置アイコン（Leafletのデフォルトが使えないため）
 const drunkguy = new L.Icon({
-  iconUrl: 'https://i.ibb.co/Q8hKNGB/3a1f104dd63aa49ddb01f711654e8119-t-removebg-preview.png',
-  iconSize: [100, 100], 
-  iconAnchor: [25, 50], 
-  popupAnchor: [0, -50], 
+  iconUrl:
+    "https://i.ibb.co/Q8hKNGB/3a1f104dd63aa49ddb01f711654e8119-t-removebg-preview.png",
+  iconSize: [100, 100],
+  iconAnchor: [25, 50],
+  popupAnchor: [0, -50],
 });
 
-
 const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
-
 
 const ViewMap = () => {
   const [izakayas, setIzakayas] = useState([]);
@@ -42,7 +41,6 @@ const ViewMap = () => {
   const [selectedShop, setSelectedShop] = useState(null);
   const [rating, setRating] = useState(3);
   const [showConquredMessage, setShowConquredMessage] = useState(false);
-  //new  If the submit button is pressed fetch again for changing marker and Conqure message
   const [buttonPressed, setButtonPressed] = useState(false);
 
   // useLocation位置情報
@@ -50,26 +48,19 @@ const ViewMap = () => {
   const navigate = useNavigate();
 
   const goHome = () => {
-    navigate("/home", { state: { userId: userId, username: username } }); // Homeコンポーネントに渡す
+    navigate("/home", { state: { userId: userId, username: username } });
   };
 
-  //   console.log("location state:", location.state);
-  //   console.log("latitude:", location.state.location?.latitude);
-  // console.log("longitude:", location.state.location?.longitude);
-  // console.log("userIDtest", location.state.userId)
   const latitude = location.state?.location?.latitude || null;
   const longitude = location.state?.location?.longitude || null;
-  // location.stateからuserIdとusername
   const userId = location.state?.userId || null;
   const username = location.state?.username || null;
 
   const fetchIzakayas = async () => {
     try {
-      // console.log(`緯度=${latitude}, 経度=${longitude}`);
       const response = await axios.get(`${apiUrl}/izakayas`, {
         params: { latitude, longitude },
       });
-      // console.log("データ受取：", response.data);
       setIzakayas(response.data);
     } catch (error) {
       console.error("could not get data", error);
@@ -87,34 +78,25 @@ const ViewMap = () => {
       console.error("could not get data visited", error);
     }
   };
-  // マウント時にデータ取得
-  useEffect(() => {
-    // console.log("latitude2:", latitude);
-    // console.log("longitude2:", longitude);
-    // console.log("userId:", userId + "username", username);
 
+  useEffect(() => {
     if (latitude && longitude && userId) {
-      fetchIzakayas(); // 酒データ取得を実行
-      // console.log("fetchIzakayasisRunning");
+      fetchIzakayas();
       fetchVisitedIzakayas();
     }
   }, [latitude, longitude, userId]);
 
-  // 居酒屋を訪問済みとする関数
   const handleVisit = async () => {
-    // ポップアップを非表示
     setShowPopup(false);
-    // console.log('selectedShophandle:', selectedShop);
-    if (!selectedShop) return; // selectedShopがない時のノーアクション用
+    if (!selectedShop) return;
 
-    // データをサーバーに送信
     const postData = {
       user_id: userId,
       restaurant_id: selectedShop,
       rating: rating,
       visited_at: new Date().toISOString(),
     };
-    // console.log(postData);
+
     try {
       await axios.post(`${apiUrl}/markAsEaten`, postData);
       setButtonPressed(true);
@@ -131,15 +113,13 @@ const ViewMap = () => {
     setShowConquredMessage(allConqured);
   };
 
-  // すべての店舗が訪問済みかどうか=>メッセージと画像表示のため
   useEffect(() => {
     checkAllConqured();
   }, [visitedIzakayas, izakayas]);
 
   useEffect(() => {
     setButtonPressed(false);
-    fetchIzakayas(); // 酒データ取得を実行
-    // console.log("fetchIzakayasisRunning");
+    fetchIzakayas();
     fetchVisitedIzakayas();
     checkAllConqured();
   }, [buttonPressed]);
@@ -148,16 +128,14 @@ const ViewMap = () => {
     setShowConquredMessage(false);
   };
 
-  // レンダリングロジック
   return (
     <div>
       <button className="ViewMap-toHome" onClick={goHome}>
         Go Home
       </button>
-      <div className='viewmap-title'>Izakaya Around You</div>
-      
+      <div className="viewmap-title">Izakaya Around You</div>
+
       <div className="map-view">
-        {/* 緯経取得できているならマップを表示 */}
         {latitude && longitude ? (
           <div className="map-container">
             <MapContainer
@@ -169,23 +147,19 @@ const ViewMap = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
-              {/* 現在位置 */}
               <Marker position={[latitude, longitude]} icon={drunkguy}>
-      <Popup className="popup-current-location">You are here!</Popup>
-    </Marker>
-              {/* 居酒屋マーカー */}
+                <Popup className="popup-current-location">You are here!</Popup>
+              </Marker>
               {izakayas.map((shop) => (
                 <Marker
                   key={shop.id}
                   position={[shop.lat, shop.lng]}
-                  icon={
-                    visitedIzakayas.includes(shop.id)
+                  icon={visitedIzakayas.includes(shop.id)
                       ? visitedIzakayaIcon
                       : izakayaIcon
                   }
                   eventHandlers={{
                     click: () => {
-                      // console.log("Selected shop:", shop);
                       setSelectedShop(shop.id);
                       setShowPopup(true);
                     },
@@ -205,8 +179,7 @@ const ViewMap = () => {
                         href={shop.urls.pc}
                         target="_blank"
                         rel="noopener noreferrer"
-                      >
-                        To Hotpepper page
+                      >To Hotpepper page
                       </a>
                     </div>
                   </Popup>
@@ -218,12 +191,11 @@ const ViewMap = () => {
           <p className="loading-map">Loading map...</p>
         )}
 
-        {/* ポップアップ*/}
         {showPopup && selectedShop && (
           <div className="popup-modal">
             <div className="modal-content">
               <h2>Rating</h2>
-              {/* 評価 */}
+
               <select
                 className="rating-select"
                 value={rating}
@@ -235,19 +207,17 @@ const ViewMap = () => {
                   </option>
                 ))}
               </select>
-              {/* 送信 */}
+
               <button
                 className="submit-rating"
                 onClick={() => handleVisit(selectedShop)}
-              >
-                Submit
+              >Submit
               </button>
-              {/* キャンセルボタン */}
+
               <button
                 className="cancel-button"
                 onClick={() => setShowPopup(false)}
-              >
-                Cancel
+              >Cancel
               </button>
             </div>
           </div>
@@ -259,12 +229,13 @@ const ViewMap = () => {
           >
             <div className="congratulations-message">
               <h1 className="meessage1">Congratulations!</h1>
-              <p className="message2">You are the Izakaya Master in this Area!</p>
+              <p className="message2">
+                You are the Izakaya Master in this Area!
+              </p>
               <button
                 className="messageButton"
                 onClick={handleConqreMessageClose}
-              >
-                Close
+              >Close
               </button>
             </div>
           </div>

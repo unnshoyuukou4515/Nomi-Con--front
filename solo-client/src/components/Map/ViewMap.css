@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');  
 @import url('https://fonts.googleapis.com/css2?family=Caveat&family=Edu+TAS+Beginner&display=swap');
 
-
   .overlay-content {
     position: absolute;
     top: 0;
@@ -11,7 +10,6 @@
     z-index: 2;
   }
   
-
   .ViewMap-toHome {
     padding: 1em 2em; 
     border: none; 
@@ -31,7 +29,6 @@
     background-color: #ddd; 
   }
   
-
   .map-container {
     height: 600px; 
     width: 80%;
@@ -40,8 +37,7 @@
     position: relative; 
     z-index: 1;
   }
-  
-  
+
   .hotpepper-credit {
     position: absolute;
     left: 50%; 
@@ -49,8 +45,6 @@
     top: 10px; 
     z-index: 5;
   }
-
-
 
   .popup-modal {
     position: fixed;

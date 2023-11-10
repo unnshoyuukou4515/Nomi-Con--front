@@ -15,6 +15,7 @@
   margin:10px;
   background-size: cover; 
 }
+
 .login-header {
   color: #fff; 
   font-family: 'Potta One', serif;
@@ -22,6 +23,7 @@
   margin-bottom: 0.1rem;
   text-shadow: 5px 5px 5px rgba(0,0,0,0.8); 
 }
+
 .login-header2 {
   color: #fff; 
   font-family: 'Potta One', serif;
@@ -29,6 +31,7 @@
   margin-bottom: 0.1rem;
   text-shadow: 5px 5px 5px rgba(0,0,0,0.8); 
 }
+
 .subtitle {
   font-family: 'Permanent Marker', serif;
   color: #ffffff; 

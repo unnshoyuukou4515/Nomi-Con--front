@@ -59,8 +59,8 @@
     .VeiwMap-toHome {  
       margin:auto;
       top: 10px; 
-       width: 95%;
-       height: 60px;
+      width: 95%;
+      height: 60px;
       z-index: 5; 
     }
     .hotpepper-credit {
@@ -73,8 +73,6 @@
       margin-top: 40px;
       display: block;
     }
-  
-
     .station-selector button {
       margin: auto;
       font-size: 16px; 
@@ -83,11 +81,9 @@
       width: calc(100% - 20px); 
     }
   
-
     .station-selector {
       text-align: center; 
     }
-  
   
     .station-selector-container {
       display: flex; 

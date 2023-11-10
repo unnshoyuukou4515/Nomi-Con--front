@@ -5,7 +5,6 @@ import "./Home.css"
 function Home() {
   const navigate = useNavigate();
   const location = useLocation(); 
-  // console.log("Current state at Home: ", location.state);
   const [userLocation, setUserLocation] = useState(null); 
 
   // location.stateユーザー情報
@@ -14,7 +13,6 @@ function Home() {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        //  console.log("Current Position:", position); 
         setUserLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -27,11 +25,8 @@ function Home() {
   }, []);
 
   const goToMap = () => {
-    // console.log('Current user location:', userLocation);
-    // console.log('Current userId:', userId); 
     if (typeof userId === 'undefined') {
-      console.error('UserId is undefined at this point');
-
+      console.error('UserId is undefined at this point.passing location error');
     }
     // 位置とユーザーID、名前をマップへ
     navigate('/map', { state: { location: userLocation, userId ,username} });

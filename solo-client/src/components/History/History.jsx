@@ -13,13 +13,12 @@ const History = () => {
   const { userId } = location.state || {};
   const { username } = location.state || {};
 
-
   const fetchVisitedIzakaya = async () => {
     try {
       const response = await axios.get(
         `${apiUrl}/user/${userId}/visited-izakayas`
       );
-      const visitedIzakayaRating = response.data; // すでにrestaurant_idとratingが含まれている
+      const visitedIzakayaRating = response.data; 
       const izakayaPromises = visitedIzakayaRating.map(
         (visited) =>
           axios
@@ -35,8 +34,6 @@ const History = () => {
       console.error(error);
     }
   };
-
-  // Visited居酒屋のIDを取得
   useEffect(() => {
     fetchVisitedIzakaya();
   }, [userId]);
@@ -45,24 +42,19 @@ const History = () => {
     try {
       const response = await axios.put(
         `${apiUrl}/user/${userId}/restaurant/${restaurantId}/rate`,
-        {
-          rating: newRating,
-        }
+        {rating: newRating,}
       );
-      console.log(response.data.message);
       fetchVisitedIzakaya();
     } catch (error) {
       console.error("Failed to update rating:", error);
     }
   };
 
-
   const deleteVisitedIzakaya = async (restaurantId) => {
     try {
       await axios.delete(`${apiUrl}/user/${userId}/restaurant/${restaurantId}`);
-
-      setVisitedIzakaya(currentIzakayas => 
-        currentIzakayas.filter(izakaya => izakaya.id !== restaurantId)
+      setVisitedIzakaya(currentIzakayalist => 
+        currentIzakayalist.filter(izakaya => izakaya.id !== restaurantId)
       );
     } catch (error) {
       console.error('Failed to delete visit record:', error);
@@ -80,8 +72,6 @@ const History = () => {
     <div className="hotpepper-credit">
       <a
         href="https://www.hotpepper.jp/"
-        target="_blank"
-        rel="noopener noreferrer"
       >
         <img
           className="hotpepper-logo"
@@ -111,9 +101,8 @@ const History = () => {
               <a
                 className="izakaya-link"
                 href={izakaya.urls.pc}
-                target="_blank"
               >
-                Visit Hotpepper page
+                Visit Hotpepper Page
               </a>
               <select
                 className="rating-select"
@@ -128,7 +117,7 @@ const History = () => {
                 ))}
               </select>
               <button className="delete-button" onClick={() => deleteVisitedIzakaya(izakaya.id)}>
-                Delete History
+                Delete Izakaya
               </button>
               </div>
             </div>
@@ -138,5 +127,4 @@ const History = () => {
     </div>
   );
 };
-
 export default History;

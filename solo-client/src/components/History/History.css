@@ -17,7 +17,7 @@ body {
   background-color: rgb(146, 149, 245);
   color: black;
   z-index: 5;
-  opacity: 0.7;
+  opacity: 0.9;
 }
 
 .goHome-button:hover {

@@ -50,7 +50,6 @@ const stations = [
   { name: "Kichijoji Station", latitude: 35.702259, longitude: 139.580333 },
   { name: "Harajuku Station", latitude: 35.670168, longitude: 139.702687 },
   { name: "Asakusa Station", latitude: 35.714555, longitude: 139.798023 },
- 
 ];
 
 const SearchStation = () => {
@@ -69,17 +68,14 @@ const SearchStation = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  // location.stateからuserIdとusername
   const userId = location.state?.userId || null;
   const username = location.state?.username || null;
 
   function MapCenter({ center }) {
     const map = useMap();
-
     useEffect(() => {
       map.setView(center);
     }, [center, map]);
-
     return null;
   }
 
@@ -91,23 +87,19 @@ const SearchStation = () => {
     }
   };
 
-  // セレクトボックスが変更されたとき
   const handleStationChange = (event) => {
     setSelectedStation(event.target.value);
   };
 
-  // useLocation位置情報
   const goHome = () => {
-    navigate("/home", { state: { userId: userId, username: username } }); // Homeコンポーネントに
+    navigate("/home", { state: { userId: userId, username: username } }); 
   };
 
   const fetchIzakayas = async (latitude, longitude) => {
     try {
-      // console.log(`緯度=${latitude}, 経度=${longitude}`);
       const response = await axios.get(`${apiUrl}/izakayas`, {
         params: { latitude, longitude },
       });
-      // console.log("データ受取：", response.data);
       setIzakayas(response.data);
     } catch (error) {
       console.error("could not get data", error);
@@ -126,7 +118,6 @@ const SearchStation = () => {
     }
   };
 
-  // マウント時にデータ取得
   useEffect(() => {
     const station = stations.find((s) => s.name === selectedStation);
     if (station) {
@@ -134,20 +125,15 @@ const SearchStation = () => {
     }
   }, [selectedStation, userId]);
 
-  // 居酒屋を訪問済みとしてマークする関数
   const handleVisit = async () => {
-    // ポップアップを非表示
     setShowPopup(false);
-    // console.log('selectedShophandle:', selectedShop);
-    if (!selectedShop) return; // selectedShopがない時のノーアクション用
-    // 訪問データをサーバーに送信
+    if (!selectedShop) return; 
     const postData = {
       user_id: userId,
       restaurant_id: selectedShop,
       rating: rating,
       visited_at: new Date().toISOString(),
     };
-    // console.log(postData);
     try {
       await axios.post(`${apiUrl}/markAsEaten`, postData);
       setButtonPressed(true);
@@ -164,7 +150,6 @@ const SearchStation = () => {
     setShowConquredMessage(allConqured);
   };
 
-  // すべての店舗が訪問済みかどうか=>メッセージと画像表示のため
   useEffect(() => {
     checkAllConqured();
   }, [visitedIzakayas, izakayas]);
@@ -172,7 +157,6 @@ const SearchStation = () => {
   useEffect(() => {
     setButtonPressed(false);
     fetchIzakayas(mapCenter.lat, mapCenter.lng);
-    // console.log("fetchIzakayasisRunning");
     fetchVisitedIzakayas();
     checkAllConqured();
   }, [buttonPressed, selectedStation]);
@@ -181,7 +165,6 @@ const SearchStation = () => {
     setShowConquredMessage(false);
   };
 
-  // レンダリングロジック
   return (
     <div>
       <button className="VeiwMap-toHome" onClick={goHome}>
@@ -200,7 +183,6 @@ const SearchStation = () => {
         </a>
       </div>
       <div>
-        {/* 駅選択セレクトボックス */}
         <div className="station-selector">
           <select
             className="station-selector-select"
@@ -219,7 +201,6 @@ const SearchStation = () => {
         </div>
       </div>
       <div className="map-view">
-        {/* 緯経取得できているならにマップを表示 */}
         {mapCenter.lat && mapCenter.lng ? (
           <div className="map-container">
             <MapContainer
@@ -231,11 +212,9 @@ const SearchStation = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
-              {/* 現在位置マーカー */}
               <Marker position={[mapCenter.lat, mapCenter.lng]} icon={drunkguy}>
                 <Popup className="popup-current-location">You are here!</Popup>
               </Marker>
-              {/* 居酒屋のマーカーをマップに配置 */}
               {izakayas.map((shop) => (
                 <Marker
                   key={shop.id}
@@ -247,7 +226,6 @@ const SearchStation = () => {
                   }
                   eventHandlers={{
                     click: () => {
-                      // console.log("Selected shop:", shop);
                       setSelectedShop(shop.id);
                       setShowPopup(true);
                     },
@@ -278,13 +256,10 @@ const SearchStation = () => {
         ) : (
           <p className="loading-map">Loading map...</p>
         )}
-
-        {/* ポップアップ*/}
         {showPopup && selectedShop && (
           <div className="popup-modal">
             <div className="modal-content">
               <h2>Rating</h2>
-              {/* 評価 */}
               <select
                 className="rating-select"
                 value={rating}
@@ -296,14 +271,12 @@ const SearchStation = () => {
                   </option>
                 ))}
               </select>
-              {/* 送信ボタン */}
               <button
                 className="submit-rating"
                 onClick={() => handleVisit(selectedShop)}
               >
                 Submit
               </button>
-              {/* キャンセルボタン */}
               <button
                 className="cancel-button"
                 onClick={() => setShowPopup(false)}

@@ -12,25 +12,15 @@ export default function LoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
       const response = await axios.post(`${apiUrl}/login`, data);
-      
-      // console.log("Login response:", response);
-      // console.log("User ID:", response.data.userId);
-      // console.log("Username:", response.data.username);
       if (response.status === 200) {
-        // console.log("Login successful with data:", response.data);
         navigate('/home', { state: { userId: response.data.userId, username: response.data.username } });
       } else {
         setLoginStatus(response.status); 
       }
     } catch (error) {
-      setLoginStatus(error.response ? error.response.status : "unknown");
-      let errorMessage = "An error occurred, Please try again later.";
-      if (error.response && error.response.data && error.response.data.message) {
-        errorMessage = error.response.data.message;
-      }
+      let errorMessage = "An error occurred, Please try again later.Possible server is not awake";
       window.alert(errorMessage);
     }
   };
@@ -38,7 +28,6 @@ export default function LoginForm() {
   return (
     <div className="login-container">
     <h1 className='login-header'>呑みコン<span className="login-header2">~Nomi Con~</span></h1>
-
     <p className = "subtitle">For the "Sake" of Good Times</p>
     <form onSubmit={handleSubmit(onSubmit)} noValidate className='login-form'>
       <div className='form-group'>

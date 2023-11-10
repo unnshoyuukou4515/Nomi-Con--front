@@ -22,7 +22,6 @@ function App() {
         <Route path="/Map" element={<ViewMap />} />
         <Route path="/History" element={<History />} />
         <Route path="/SearchStation" element={<SearchStation />} />
-       
       </Routes>
     </Router>
   );
